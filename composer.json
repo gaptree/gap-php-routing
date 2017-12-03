@@ -1,6 +1,11 @@
 {
     "name": "gap/routing",
     "type": "library",
+    "description": "Gap Routing",
+    "keywords": [
+        "gap"
+    ],
+    "homepage": "https://project.tecposter.cn/diffusion/51/",
     "authors": [
         {
             "name": "zhanjh",
