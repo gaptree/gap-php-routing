@@ -1,7 +1,7 @@
 <?php
 namespace Gap\Routing;
 
-class BuildRouter
+class RouterBuilder
 {
     protected $srcOpts;
     protected $baseDir;

@@ -2,17 +2,17 @@
 namespace phpunit\Gap\Routing;
 
 use PHPUnit\Framework\TestCase;
-use Gap\Routing\BuildRouter;
-use Gap\Routing\BuildRouteUrl;
-use Gap\Routing\BuildSiteUrl;
+use Gap\Routing\RouterBuilder;
+use Gap\Routing\RouteUrlBuilder;
+use Gap\Routing\SiteUrlBuilder;
 use Gap\Routing\SiteManager;
 use Gap\Routing\Router;
 
-class BuildRouteUrlTest extends TestCase
+class RouteUrlBuilderTest extends TestCase
 {
     public function testRouteUrl(): void
     {
-        $buildUrl = new BuildRouteUrl($this->getRouter(), $this->getBuildSiteUrl());
+        $buildUrl = new RouteUrlBuilder($this->getRouter(), $this->getSiteUrlBuilder());
         $url = $buildUrl->routeUrl(
             'fetchArticle',
             ['zcode' => 'abc'],
@@ -29,7 +29,7 @@ class BuildRouteUrlTest extends TestCase
 
     public function testRouteUrlWithLocale(): void
     {
-        $buildUrl = new BuildRouteUrl($this->getRouter(), $this->getBuildSiteUrl(), 'zh-cn');
+        $buildUrl = new RouteUrlBuilder($this->getRouter(), $this->getSiteUrlBuilder(), 'zh-cn');
         $url = $buildUrl->routeUrl(
             'fetchArticle',
             ['zcode' => 'abc'],
@@ -43,7 +43,7 @@ class BuildRouteUrlTest extends TestCase
             $url
         );
 
-        $buildUrl->setLocale('en-us');
+        $buildUrl->setLocaleKey('en-us');
         $url = $buildUrl->routeUrl(
             'fetchArticle',
             ['zcode' => 'abc'],
@@ -60,7 +60,7 @@ class BuildRouteUrlTest extends TestCase
 
     public function testRoutePost(): void
     {
-        $buildUrl = new BuildRouteUrl($this->getRouter(), $this->getBuildSiteUrl());
+        $buildUrl = new RouteUrlBuilder($this->getRouter(), $this->getSiteUrlBuilder());
         $url = $buildUrl->routePostRest(
             'updateCommit',
             [],
@@ -75,8 +75,8 @@ class BuildRouteUrlTest extends TestCase
 
     public function testStaticUrl(): void
     {
-        $buildSiteUrl = $this->getBuildSiteUrl();
-        $url = $buildSiteUrl->staticUrl('/a/b/c', ['v' => '321', 'd' => 'now']);
+        $siteUrlBuilder = $this->getSiteUrlBuilder();
+        $url = $siteUrlBuilder->staticUrl('/a/b/c', ['v' => '321', 'd' => 'now']);
 
         $this->assertEquals(
             '//static.gaptree.com/a/b/c?v=321&d=now',
@@ -86,14 +86,14 @@ class BuildRouteUrlTest extends TestCase
 
     protected function getRouter(): Router
     {
-        $buildRouter = new \Gap\Routing\BuildRouter(
+        $routerBuilder = new \Gap\Routing\RouterBuilder(
             dirname(__DIR__),
             []
         );
-        $buildRouter
+        $routerBuilder
             ->setCacheFile('cache/setting-router-http.php');
 
-        $router = $buildRouter->build();
+        $router = $routerBuilder->build();
         return $router;
     }
 
@@ -113,8 +113,8 @@ class BuildRouteUrlTest extends TestCase
         ]);
     }
 
-    protected function getBuildSiteUrl(): BuildSiteUrl
+    protected function getSiteUrlBuilder(): SiteUrlBuilder
     {
-        return new BuildSiteUrl($this->getSiteManager());
+        return new SiteUrlBuilder($this->getSiteManager());
     }
 }

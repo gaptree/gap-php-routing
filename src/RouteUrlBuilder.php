@@ -1,22 +1,25 @@
 <?php
 namespace Gap\Routing;
 
-class BuildRouteUrl
+class RouteUrlBuilder
 {
     protected $router;
-    protected $locale;
-    protected $buildSiteUrl;
+    protected $localeKey;
+    protected $siteUrlBuilder;
 
-    public function __construct(Router $router, BuildSiteUrl $buildSiteUrl, string $locale = '')
-    {
+    public function __construct(
+        Router $router,
+        SiteUrlBuilder $siteUrlBuilder,
+        string $localeKey = ''
+    ) {
         $this->router = $router;
-        $this->buildSiteUrl = $buildSiteUrl;
-        $this->locale = $locale;
+        $this->siteUrlBuilder = $siteUrlBuilder;
+        $this->localeKey = $localeKey;
     }
 
-    public function setLocale(string $locale): void
+    public function setLocaleKey(string $localeKey): void
     {
-        $this->locale = $locale;
+        $this->localeKey = $localeKey;
     }
 
     public function routeUrl(
@@ -28,9 +31,9 @@ class BuildRouteUrl
         string $method = ''
     ): string {
         $route = $this->router->getRoute($name, $params, $mode, $method);
-        $localeSlug = $this->locale ? '/' . $this->locale : '';
+        $localeSlug = $this->localeKey ? '/' . $this->localeKey : '';
 
-        return $this->buildSiteUrl->url(
+        return $this->siteUrlBuilder->url(
             $route->site,
             $localeSlug . $route->getPath(),
             $query,

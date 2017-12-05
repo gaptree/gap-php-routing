@@ -1,7 +1,7 @@
 <?php
 namespace Gap\Routing;
 
-class BuildSiteUrl
+class SiteUrlBuilder
 {
     protected $siteManager;
 

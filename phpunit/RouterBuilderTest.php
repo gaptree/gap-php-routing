@@ -2,13 +2,13 @@
 namespace phpunit\Gap\Routing;
 
 use PHPUnit\Framework\TestCase;
-use Gap\Routing\BuildRouter;
+use Gap\Routing\RouterBuilder;
 
-class BuildRouterTest extends TestCase
+class RouterBuilderTest extends TestCase
 {
     public function testBuild(): void
     {
-        $buildRouter = new \Gap\Routing\BuildRouter(
+        $buildRouter = new \Gap\Routing\RouterBuilder(
             dirname(__DIR__),
             [
                 'article' => ['dir' => 'phpunit/router/article'],
@@ -34,7 +34,7 @@ class BuildRouterTest extends TestCase
 
     public function testBuildWitchCache(): void
     {
-        $buildRouter = new \Gap\Routing\BuildRouter(
+        $buildRouter = new \Gap\Routing\RouterBuilder(
             dirname(__DIR__),
             []
         );
