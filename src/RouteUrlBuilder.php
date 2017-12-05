@@ -26,12 +26,16 @@ class RouteUrlBuilder
         string $name,
         array $params = [],
         array $query = [],
-        string $protocol = '',
-        string $mode = '',
-        string $method = ''
+        array $opts = []
     ): string {
+        $protocol = $opts['protocol'] ?? '';
+        $mode = $opts['mode'] ?? '';
+        $method = $opts['method'] ?? '';
+        $localeKey = $opts['localeKey'] ?? '';
+
         $route = $this->router->getRoute($name, $params, $mode, $method);
-        $localeSlug = $this->localeKey ? '/' . $this->localeKey : '';
+        $localeKey = $localeKey ? $localeKey : $this->localeKey;
+        $localeSlug = $localeKey ? '/' . $localeKey : '';
 
         return $this->siteUrlBuilder->url(
             $route->site,
@@ -41,23 +45,31 @@ class RouteUrlBuilder
         );
     }
 
-    public function routePost($name, $params = [], $query = [], $protocol = '')
+    public function routePost($name, $params = [], $query = [], $opts = [])
     {
-        return $this->routeUrl($name, $params, $query, $protocol, 'ui', 'POST');
+        $opts['mode'] = 'ui';
+        $opts['method'] = 'POST';
+        return $this->routeUrl($name, $params, $query, $opts);
     }
 
-    public function routeGet($name, $params = [], $query = [], $protocol = '')
+    public function routeGet($name, $params = [], $query = [], $opts = [])
     {
-        return $this->routeUrl($name, $params, $query, $protocol, 'ui', 'GET');
+        $opts['mode'] = 'ui';
+        $opts['method'] = 'GET';
+        return $this->routeUrl($name, $params, $query, $opts);
     }
 
-    public function routePostRest($name, $params = [], $query = [], $protocol = '')
+    public function routePostRest($name, $params = [], $query = [], $opts = [])
     {
-        return $this->routeUrl($name, $params, $query, $protocol, 'rest', 'POST');
+        $opts['mode'] = 'rest';
+        $opts['method'] = 'POST';
+        return $this->routeUrl($name, $params, $query, $opts);
     }
 
-    public function routeGetRest($name, $params = [], $query = [], $protocol = '')
+    public function routeGetRest($name, $params = [], $query = [], $opts = [])
     {
-        return $this->routeUrl($name, $params, $query, $protocol, 'rest', 'GET');
+        $opts['mode'] = 'rest';
+        $opts['method'] = 'GET';
+        return $this->routeUrl($name, $params, $query, $opts);
     }
 }

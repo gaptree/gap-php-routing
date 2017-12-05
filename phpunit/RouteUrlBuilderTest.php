@@ -17,9 +17,10 @@ class RouteUrlBuilderTest extends TestCase
             'fetchArticle',
             ['zcode' => 'abc'],
             ['commitId' => 'edf', 'v' => '1234'],
-            '',
-            'ui',
-            'GET'
+            [
+                'mode' => 'ui',
+                'method' => 'GET'
+            ]
         );
         $this->assertEquals(
             "//www.gaptree.com/a/abc?commitId=edf&v=1234",
@@ -34,9 +35,7 @@ class RouteUrlBuilderTest extends TestCase
             'fetchArticle',
             ['zcode' => 'abc'],
             ['commitId' => 'edf', 'v' => '1234'],
-            '',
-            'ui',
-            'GET'
+            ['mode' => 'ui', 'method' => 'GET']
         );
         $this->assertEquals(
             "//www.gaptree.com/zh-cn/a/abc?commitId=edf&v=1234",
@@ -48,9 +47,7 @@ class RouteUrlBuilderTest extends TestCase
             'fetchArticle',
             ['zcode' => 'abc'],
             ['commitId' => 'edf', 'v' => '1234'],
-            '',
-            'ui',
-            'GET'
+            ['mode' => 'ui', 'method' => 'GET']
         );
         $this->assertEquals(
             "//www.gaptree.com/en-us/a/abc?commitId=edf&v=1234",
@@ -65,7 +62,7 @@ class RouteUrlBuilderTest extends TestCase
             'updateCommit',
             [],
             ['commitId' => 'edf', 'v' => '5678'],
-            'https://'
+            ['protocol' => 'https://']
         );
         $this->assertEquals(
             'https://www.gaptree.com/rest/commit/update?commitId=edf&v=5678',
