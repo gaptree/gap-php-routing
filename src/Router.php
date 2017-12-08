@@ -65,7 +65,7 @@ class Router
 
     protected function getDispatcher($site): Dispatcher
     {
-        if (!$this->dispatchDataMap[$site]) {
+        if (!isset($this->dispatchDataMap[$site])) {
             throw new \Exception("No route in site[$site]");
         }
         return new Dispatcher($this->dispatchDataMap[$site]);
