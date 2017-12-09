@@ -49,18 +49,29 @@ class Router
         $modes = $mode ? [$mode] : ['ui', 'rest', 'open'];
         $methods = $method ? [$method] : ['GET', 'POST'];
 
-        if ($set = $this->routeMap[$name] ?? null) {
-            foreach ($modes as $mode) {
-                if ($sons = $set[$mode] ?? null) {
-                    foreach ($methods as $method) {
-                        if ($route = $sons[$method] ?? null) {
-                            $route->setParams($params);
-                            return $route;
-                        }
-                    }
+        $set = $this->routeMap[$name] ?? null;
+        if (is_null($set)) {
+            throw new \Exception("cannot find route $name");
+        }
+
+        foreach ($modes as $mode) {
+            $sons = $set[$mode] ?? null;
+            if (is_null($sons)) {
+                throw new \Exception("cannot find route $name - $mode");
+            }
+
+            foreach ($methods as $method) {
+                $route = $sons[$method] ?? null;
+                if (is_null($route)) {
+                    throw new \Exception("cannot find route $name - $mode - $method");
                 }
+
+                $route->setParams($params);
+                return $route;
             }
         }
+
+        throw new \Exception('unkonw');
     }
 
     protected function getDispatcher($site): Dispatcher
