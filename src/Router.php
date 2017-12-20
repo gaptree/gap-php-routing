@@ -57,13 +57,17 @@ class Router
         foreach ($modes as $mode) {
             $sons = $set[$mode] ?? null;
             if (is_null($sons)) {
-                throw new \Exception("cannot find route $name - $mode");
+                continue;
+                // to support routeUrl(...)
+                //throw new \Exception("cannot find route $name - $mode");
             }
 
             foreach ($methods as $method) {
                 $route = $sons[$method] ?? null;
                 if (is_null($route)) {
-                    throw new \Exception("cannot find route $name - $mode - $method");
+                    continue;
+                    // to support routeUrl(...)
+                    //throw new \Exception("cannot find route $name - $mode - $method");
                 }
 
                 $route->setParams($params);
