@@ -72,4 +72,18 @@ class RouteUrlBuilder
         $opts['method'] = 'GET';
         return $this->routeUrl($name, $params, $query, $opts);
     }
+
+    public function routePostOpen($name, $params = [], $query = [], $opts = [])
+    {
+        $opts['mode'] = 'open';
+        $opts['method'] = 'POST';
+        return $this->routeUrl($name, $params, $query, $opts);
+    }
+
+    public function routeGetOpen($name, $params = [], $query = [], $opts = [])
+    {
+        $opts['mode'] = 'open';
+        $opts['method'] = 'GET';
+        return $this->routeUrl($name, $params, $query, $opts);
+    }
 }
