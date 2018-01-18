@@ -26,17 +26,28 @@ class Router
         $dispatcher = $this->getDispatcher($site);
         $res = $dispatcher->dispatch($method, $path);
 
-        switch ($res[0]) {
-            case Dispatcher::NOT_FOUND:
-                throw new \Exception('route not found');
-                break;
-            case Dispatcher::METHOD_NOT_ALLOWED:
-                throw new \Exception('route method not allowed');
-                break;
-            case Dispatcher::FOUND:
-                $route = $this->routeMap[$res[1]['name']][$res[1]['mode']][$res[1]['method']];
-                $route->setParams($res[2]);
-                return $route;
+        $flag = $res[0];
+
+        if ($flag === Dispatcher::FOUND) {
+            $routeArr = $res[1];
+            $params = $res[2];
+
+            $name = $routeArr['name'];
+            $mode = $routeArr['mode'];
+            $method = $routeArr['method'];
+
+            $route = $this->routeMap[$name][$mode][$method];
+            $route->setParams($params);
+
+            return $route;
+        }
+
+        if ($flag === Dispatcher::NOT_FOUND) {
+            throw new \Exception('route not found');
+        }
+
+        if ($flag === Dispatcher::METHOD_NOT_ALLOWED) {
+            throw new \Exception('route method not allowed');
         }
     }
 
