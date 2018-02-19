@@ -53,6 +53,14 @@ class RouteCollectionLoader
         return $dispatchDataMap;
     }
 
+    public function getRouterData(): array
+    {
+        return [
+            'routeMap' => $this->getRouteMap(),
+            'dispatchDataMap' => $this->getDispatchDataMap(),
+        ];
+    }
+
     protected function addRoute(array $opts): void
     {
         if (!isset($opts['site'])) {

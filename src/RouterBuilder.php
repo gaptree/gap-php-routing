@@ -32,10 +32,7 @@ class RouterBuilder
             $loader->requireDir($this->baseDir . '/' . $opts['dir'], $appName);
         }
 
-        $routerData = [
-            'routeMap' => $loader->getRouteMap(),
-            'dispatchDataMap' => $loader->getDispatchDataMap(),
-        ];
+        $routerData = $loader->getRouterData();
 
         if ($this->cacheFile) {
             $this->var2file(
