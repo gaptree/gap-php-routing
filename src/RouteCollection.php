@@ -117,35 +117,4 @@ class RouteCollection
         ]);
         return $this;
     }
-
-    public function requireFile(string $file, string $appName): self
-    {
-        // deprecated
-        //$this->app($appName);
-
-        $fileCollection = require $file;
-        if ($fileCollection instanceof self) {
-            foreach ($fileCollection->all() as $opts) {
-                $opts['app'] = $appName;
-                $this->addRoute($opts);
-            }
-        }
-
-        return $this;
-    }
-
-    public function requireDir(string $dir, string $appName): self
-    {
-        if (!file_exists($dir)) {
-            throw new \Exception('Cannot find dir: ' . $dir);
-        }
-
-        foreach (scandir($dir) as $file) {
-            if (pathinfo($file, PATHINFO_EXTENSION) == 'php') {
-                $this->requireFile($dir . '/' . $file, $appName);
-            }
-        }
-
-        return $this;
-    }
 }

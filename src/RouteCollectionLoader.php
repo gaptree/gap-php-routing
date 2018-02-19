@@ -5,16 +5,38 @@ use FastRoute\RouteParser\Std as RouteParser;
 use FastRoute\RouteCollector as FastRouteCollector;
 use FastRoute\DataGenerator\GroupCountBased as DataGenerator;
 
-class Collector
+class RouteCollectionLoader
 {
     protected $fastRouteCollectors = [];
     protected $routeMap = [];
 
-    public function loadCollection(RouteCollection $collection): void
+    public function loadCollection(RouteCollection $collection, string $appName = ''): void
     {
         foreach ($collection->all() as $opts) {
+            $opts['app'] = $appName;
             $this->addRoute($opts);
         }
+    }
+
+    public function requireFile(string $file, string $appName): self
+    {
+        $this->loadCollection(require $file, $appName);
+        return $this;
+    }
+
+    public function requireDir(string $dir, string $appName): self
+    {
+        if (!file_exists($dir)) {
+            throw new \Exception('Cannot find dir: ' . $dir);
+        }
+
+        foreach (scandir($dir) as $file) {
+            if (pathinfo($file, PATHINFO_EXTENSION) == 'php') {
+                $this->requireFile($dir . '/' . $file, $appName);
+            }
+        }
+
+        return $this;
     }
 
     public function getRouteMap(): array

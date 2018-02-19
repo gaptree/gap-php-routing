@@ -27,16 +27,14 @@ class RouterBuilder
             return $router;
         }
 
-        $collector = new Collector();
-        $collection = new RouteCollection();
+        $loader = new RouteCollectionLoader();
         foreach ($this->srcOpts as $appName => $opts) {
-            $collection->requireDir($this->baseDir . '/' . $opts['dir'], $appName);
+            $loader->requireDir($this->baseDir . '/' . $opts['dir'], $appName);
         }
-        $collector->loadCollection($collection);
 
         $routerData = [
-            'routeMap' => $collector->getRouteMap(),
-            'dispatchDataMap' => $collector->getDispatchDataMap(),
+            'routeMap' => $loader->getRouteMap(),
+            'dispatchDataMap' => $loader->getDispatchDataMap(),
         ];
 
         if ($this->cacheFile) {
