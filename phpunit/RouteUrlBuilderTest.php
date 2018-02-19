@@ -4,9 +4,10 @@ namespace phpunit\Gap\Routing;
 use PHPUnit\Framework\TestCase;
 use Gap\Routing\RouterBuilder;
 use Gap\Routing\RouteUrlBuilder;
-use Gap\Routing\SiteUrlBuilder;
-use Gap\Routing\SiteManager;
 use Gap\Routing\Router;
+
+use Gap\Http\SiteUrlBuilder;
+use Gap\Http\SiteManager;
 
 class RouteUrlBuilderTest extends TestCase
 {
