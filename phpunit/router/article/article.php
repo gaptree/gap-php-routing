@@ -21,6 +21,14 @@ $collection
         '/article/request-update/{zcode:[a-zA-Z0-9-]+}',
         'reqUpdateArticle',
         'Tec\Article\Article\Ui\ReqUpdateArticleUi@show'
+    )
+
+    ->site('front')
+    ->access('public')
+    ->get(
+        '/article/{zcode:[a-zA-Z0-9-]+}/show',
+        'showArticle',
+        'Tec\Article\Article\Ui\ShowArticleUi@show'
     );
 
 return $collection;

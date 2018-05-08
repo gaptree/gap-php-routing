@@ -27,6 +27,20 @@ class RouteUrlBuilderTest extends TestCase
             "//www.gaptree.com/a/abc?commitId=edf&v=1234",
             $url
         );
+
+        $frontUrl = $buildUrl->routeUrl(
+            'showArticle',
+            ['zcode' => 'abc'],
+            ['commitId' => 'edf', 'v' => '1234'],
+            [
+                'mode' => 'ui',
+                'method' => 'GET'
+            ]
+        );
+        $this->assertEquals(
+            "//www.gaptree.com/web/article/abc/show?commitId=edf&v=1234",
+            $frontUrl
+        );
     }
 
     public function testRouteUrlWithLocale(): void
@@ -43,6 +57,17 @@ class RouteUrlBuilderTest extends TestCase
             $url
         );
 
+        $frontUrl = $buildUrl->routeUrl(
+            'showArticle',
+            ['zcode' => 'abc'],
+            ['commitId' => 'edf', 'v' => '1234'],
+            ['mode' => 'ui', 'method' => 'GET']
+        );
+        $this->assertEquals(
+            "//www.gaptree.com/web/zh-cn/article/abc/show?commitId=edf&v=1234",
+            $frontUrl
+        );
+
         $buildUrl->setLocaleKey('en-us');
         $url = $buildUrl->routeUrl(
             'fetchArticle',
@@ -53,6 +78,17 @@ class RouteUrlBuilderTest extends TestCase
         $this->assertEquals(
             "//www.gaptree.com/en-us/a/abc?commitId=edf&v=1234",
             $url
+        );
+
+        $frontUrl = $buildUrl->routeUrl(
+            'showArticle',
+            ['zcode' => 'abc'],
+            ['commitId' => 'edf', 'v' => '1234'],
+            ['mode' => 'ui', 'method' => 'GET']
+        );
+        $this->assertEquals(
+            "//www.gaptree.com/web/en-us/article/abc/show?commitId=edf&v=1234",
+            $frontUrl
         );
     }
 
@@ -98,6 +134,9 @@ class RouteUrlBuilderTest extends TestCase
     protected function getSiteManager(): SiteManager
     {
         return new SiteManager([
+            'front' => [
+                'host' => 'www.gaptree.com/web',
+            ],
             'www' => [
                 'host' => 'www.gaptree.com',
             ],

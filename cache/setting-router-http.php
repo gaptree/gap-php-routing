@@ -64,6 +64,27 @@
         )),
       ),
     ),
+    'showArticle' => 
+    array (
+      'ui' => 
+      array (
+        'GET' => 
+        Gap\Routing\Route::__set_state(array(
+           'status' => 0,
+           'name' => 'showArticle',
+           'action' => 'Tec\\Article\\Article\\Ui\\ShowArticleUi@show',
+           'site' => 'front',
+           'app' => 'article',
+           'mode' => 'ui',
+           'access' => 'public',
+           'params' => 
+          array (
+          ),
+           'pattern' => '/article/{zcode:[a-zA-Z0-9-]+}/show',
+           'method' => 'GET',
+        )),
+      ),
+    ),
     'updateCommit' => 
     array (
       'ui' => 
@@ -162,6 +183,38 @@
                 0 => 
                 array (
                   'name' => 'reqUpdateArticle',
+                  'mode' => 'ui',
+                  'method' => 'GET',
+                ),
+                1 => 
+                array (
+                  'zcode' => 'zcode',
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+    'front' => 
+    array (
+      0 => 
+      array (
+      ),
+      1 => 
+      array (
+        'GET' => 
+        array (
+          0 => 
+          array (
+            'regex' => '~^(?|/article/([a-zA-Z0-9-]+)/show)$~',
+            'routeMap' => 
+            array (
+              2 => 
+              array (
+                0 => 
+                array (
+                  'name' => 'showArticle',
                   'mode' => 'ui',
                   'method' => 'GET',
                 ),

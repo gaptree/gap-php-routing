@@ -8,20 +8,23 @@ class RouterBuilderTest extends TestCase
 {
     public function testBuild(): void
     {
+        $baseDir = dirname(__DIR__);
+
         $buildRouter = new \Gap\Routing\RouterBuilder(
-            dirname(__DIR__),
+            $baseDir,
             [
                 'article' => ['dir' => 'phpunit/router/article'],
                 'commit' => ['dir' => 'phpunit/router/commit']
             ]
         );
-        /*
-        keep it
-        if ($debug) {
-            $buildRouter
-                ->setCacheFile('cache/setting-router-http.php');
+
+        $cacheFile = $baseDir . '/cache/setting-router-http.php';
+        if (file_exists($cacheFile)) {
+            unlink($cacheFile);
         }
-        */
+
+        $buildRouter
+            ->setCacheFile('cache/setting-router-http.php');
 
         $router = $buildRouter->build();
         $route = $router->dispatch('www', 'GET', '/a/asdfg1234');
