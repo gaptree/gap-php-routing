@@ -1,7 +1,7 @@
 <?php
 namespace Gap\Routing;
 
-class Route
+class Route implements \JsonSerializable
 {
     public $status; // deprecated
     public $name;
@@ -17,6 +17,11 @@ class Route
     public static function __set_state(array $data)
     {
         return new Route($data);
+    }
+
+    public function jsonSerialize(): array
+    {
+        return get_object_vars($this);
     }
 
     public function __construct(array $data)

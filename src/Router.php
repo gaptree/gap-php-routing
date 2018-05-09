@@ -51,6 +51,20 @@ class Router
         }
     }
 
+    public function allRoute(): array
+    {
+        $routes = [];
+        foreach ($this->routeMap as $set) {
+            foreach ($set as $sub) {
+                foreach ($sub as $route) {
+                    $routes[] = $route;
+                }
+            }
+        }
+
+        return $routes;
+    }
+
     // not recommand
     public function allRouteByAccess(string $access): array
     {
