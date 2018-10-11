@@ -1,8 +1,6 @@
 <?php
 namespace Gap\Routing;
 
-use Gap\Http\SiteUrlBuilder;
-
 class RouteUrlBuilder
 {
     protected $router;

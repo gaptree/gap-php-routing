@@ -80,7 +80,13 @@ class Route implements \JsonSerializable
                 $this->replaceNamedParameters($pattern, $params)
             );
         }
-        return str_replace(['[', ']'], '', preg_replace('/\{.*?\?\}/', '', $pattern));
+        $replaced = str_replace(['[', ']'], '', preg_replace('/\{.*?\?\}/', '', $pattern));
+
+        if (is_string($replaced)) {
+            return $replaced;
+        }
+
+        return '';
     }
 
     protected function pregReplaceSub($pattern, &$replacements, $subject)

@@ -6,8 +6,8 @@ use Gap\Routing\RouterBuilder;
 use Gap\Routing\RouteUrlBuilder;
 use Gap\Routing\Router;
 
-use Gap\Http\SiteUrlBuilder;
-use Gap\Http\SiteManager;
+use Gap\Routing\SiteUrlBuilder;
+use Gap\Routing\SiteManager;
 
 class RouteUrlBuilderTest extends TestCase
 {

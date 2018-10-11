@@ -30,9 +30,13 @@ class RouteCollectionLoader
             throw new \Exception('Cannot find dir: ' . $dir);
         }
 
-        foreach (scandir($dir) as $file) {
-            if (pathinfo($file, PATHINFO_EXTENSION) == 'php') {
-                $this->requireFile($dir . '/' . $file, $appName);
+        $scaned = scandir($dir);
+
+        if (is_array($scaned)) {
+            foreach ($scaned as $file) {
+                if (pathinfo($file, PATHINFO_EXTENSION) == 'php') {
+                    $this->requireFile($dir . '/' . $file, $appName);
+                }
             }
         }
 
