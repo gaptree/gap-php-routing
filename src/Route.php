@@ -9,7 +9,7 @@ class Route implements \JsonSerializable
     public $site;
     public $app;
     public $mode;
-    public $access;
+    public $filters;
     public $params;
     public $pattern;
     public $method;
@@ -28,7 +28,7 @@ class Route implements \JsonSerializable
     {
         $this->site = $data['site'] ?? '';
         $this->app = $data['app'] ?? '';
-        $this->access = $data['access'] ?? '';
+        $this->filters = $data['filters'] ?? '';
 
         $this->method = $data['method'];
         $this->status = $data['status'] ?? 0;
@@ -44,8 +44,8 @@ class Route implements \JsonSerializable
         if (empty($this->site)) {
             throw new \Exception('route site could not be empty');
         }
-        if (empty($this->access)) {
-            throw new \Exception('route access could not be empty');
+        if (!is_array($this->filters)) {
+            throw new \Exception('route filters could not be empty');
         }
         if (empty($this->app)) {
             throw new \Exception('route app could not be empty');
@@ -155,9 +155,9 @@ class Route implements \JsonSerializable
         return $this->mode;
     }
 
-    public function getAccess(): string
+    public function getFilters(): array
     {
-        return $this->access;
+        return $this->filters;
     }
 
     public function getParams(): array

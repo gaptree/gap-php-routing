@@ -66,6 +66,8 @@ class Router
     }
 
     // not recommand
+    // todo delete
+    /*
     public function allRouteByAccess(string $access): array
     {
         $routes = [];
@@ -81,6 +83,7 @@ class Router
 
         return $routes;
     }
+     */
 
     public function getRoute(
         string $name,

@@ -3,15 +3,14 @@ $collection = new \Gap\Routing\RouteCollection();
 
 $collection
     ->site('www')
-    ->access('public')
+    ->noFilter()
     ->get(
         '/a/{zcode:[a-zA-Z0-9-]+}',
         'fetchArticle',
         'Tec\Article\Article\Ui\FetchArticleUi@show'
     )
 
-    ->access('login')
-
+    ->filter('login')
     ->get(
         '/article/request-create',
         'reqCreateArticle',
@@ -24,7 +23,7 @@ $collection
     )
 
     ->site('front')
-    ->access('public')
+    ->noFilter()
     ->get(
         '/article/{zcode:[a-zA-Z0-9-]+}/show',
         'showArticle',

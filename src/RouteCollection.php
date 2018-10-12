@@ -7,7 +7,7 @@ class RouteCollection
 
     protected $app;
     protected $site;
-    protected $access;
+    protected $filters = [];
 
     public function app(string $app): self
     {
@@ -21,9 +21,15 @@ class RouteCollection
         return $this;
     }
 
-    public function access(string $access): self
+    public function noFilter(): self
     {
-        $this->access = $access;
+        $this->filters = [];
+        return $this;
+    }
+
+    public function filter(string ...$filters): self
+    {
+        $this->filters = $filters;
         return $this;
     }
 
@@ -37,8 +43,8 @@ class RouteCollection
         if (!isset($opts['site'])) {
             $opts['site'] = $this->site;
         }
-        if (!isset($opts['access'])) {
-            $opts['access'] = $this->access;
+        if (!isset($opts['filters'])) {
+            $opts['filters'] = $this->filters;
         }
         if (!isset($opts['app'])) {
             $opts['app'] = $this->app;

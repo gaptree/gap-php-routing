@@ -122,10 +122,15 @@ class RouteUrlBuilderTest extends TestCase
     {
         $routerBuilder = new \Gap\Routing\RouterBuilder(
             dirname(__DIR__),
-            []
+            [
+                'article' => ['dir' => 'phpunit/router/article'],
+                'commit' => ['dir' => 'phpunit/router/commit']
+            ]
         );
+        /*
         $routerBuilder
             ->setCacheFile('cache/setting-router-http.php');
+         */
 
         $router = $routerBuilder->build();
         return $router;

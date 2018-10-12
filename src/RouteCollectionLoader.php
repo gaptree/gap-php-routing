@@ -73,8 +73,8 @@ class RouteCollectionLoader
         if (!isset($opts['app'])) {
             throw new \Exception('app not fond');
         }
-        if (!isset($opts['access'])) {
-            throw new \Exception('access not found');
+        if (!is_array($opts['filters'])) {
+            throw new \Exception('filters not found');
         }
         $route = new Route($opts);
 

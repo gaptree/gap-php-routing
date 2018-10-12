@@ -2,7 +2,7 @@
 $collection = new \Gap\Routing\RouteCollection();
 $collection
     ->site('www')
-    ->access('login')
+    ->filter('login')
 
     ->get(
         '/commit/update',
